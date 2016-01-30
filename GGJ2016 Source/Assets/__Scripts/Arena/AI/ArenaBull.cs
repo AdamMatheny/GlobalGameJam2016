@@ -59,6 +59,12 @@ public class ArenaBull : MonoBehaviour
 	//Go to a gate after ramming into a wall ~Adam
 	void OnCollisionEnter2D(Collision2D coll) 
 	{
+        if (coll.gameObject.GetComponent<ArenaPlayer>() != null)
+        {
+
+            coll.gameObject.GetComponent<ArenaPlayer>().TakeDamage(true);
+        }
+
 		if(coll.gameObject.layer == 12) //Layer 12 should be the ArenaWall layer
 		{
 			List<BullExit> exitList = FindObjectOfType<ArenaBullSpawner>().mBullExits;

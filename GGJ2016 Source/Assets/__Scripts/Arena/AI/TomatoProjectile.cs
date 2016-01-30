@@ -17,6 +17,9 @@ public class TomatoProjectile : MonoBehaviour
 	{
 		if(coll.gameObject.GetComponent<ArenaPlayer>()!=null)
 		{
+
+            coll.gameObject.GetComponent<ArenaPlayer>().TakeDamage(false);
+
 			Debug.Log("Hit the player!");
 		}
 		Destroy (this.gameObject);
