@@ -48,7 +48,7 @@ public class ArenaBullSpawner : MonoBehaviour
 			}
 		}
 
-		if(mGatesOpen || mGateOpenTimer <=7f)
+        if (mGateOpenTimer <= 7f && mGateOpenTimer >= 4.5f)
 		{
 			Camera.main.GetComponent<CameraShake>().ShakeCamera();
 		}

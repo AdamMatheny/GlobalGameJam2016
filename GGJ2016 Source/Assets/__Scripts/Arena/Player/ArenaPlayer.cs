@@ -49,6 +49,10 @@ public class ArenaPlayer : MonoBehaviour
         {
             Die();
         }
+
+        mainCamera.GetComponentInChildren<CameraShake>().ShakeCamera();
+        mainCamera.GetComponentInChildren<CameraShake>().mShakeStrength = .35f;
+        mainCamera.GetComponentInChildren<CameraShake>().mShakeDuration = .3f;
     }
 
     void Die() //Kill the Player
@@ -108,6 +112,10 @@ public class ArenaPlayer : MonoBehaviour
 
                 Instantiate(tomato, transform.position, transform.rotation);
                 tomatoCount--;
+
+                mainCamera.GetComponentInChildren<CameraShake>().ShakeCamera();
+                mainCamera.GetComponentInChildren<CameraShake>().mShakeStrength = .25f;
+                mainCamera.GetComponentInChildren<CameraShake>().mShakeDuration = .3f;
             }
 
             screenPos = crosshair.transform.position;
