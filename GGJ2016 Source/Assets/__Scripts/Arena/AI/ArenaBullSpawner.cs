@@ -44,7 +44,7 @@ public class ArenaBullSpawner : MonoBehaviour
 			mBullSpawnTimer = 0.5f;
 		}
 
-		if(mGatesOpen)
+		if(mGatesOpen || mGateOpenTimer <=7f)
 		{
 			Camera.main.GetComponent<CameraShake>().ShakeCamera();
 		}

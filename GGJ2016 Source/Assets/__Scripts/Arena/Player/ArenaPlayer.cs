@@ -80,7 +80,7 @@ public class ArenaPlayer : MonoBehaviour
     void Update()
     {
 
-        UIText.GetComponent<Text>().text = ("Lives: " + health + "\n" + "Ammo: " + tomatoCount); //Display Health and Ammo
+        UIText.GetComponent<Text>().text = ("Lives: " + health + "\nAmmo: " + tomatoCount+"\nScore: "+PlayerPrefs.GetInt("RoundScore")); //Display Health and Ammo
 
         if (health < 0)
         {

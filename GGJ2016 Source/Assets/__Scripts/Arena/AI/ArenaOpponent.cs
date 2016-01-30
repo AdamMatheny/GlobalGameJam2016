@@ -193,18 +193,26 @@ public class ArenaOpponent : MonoBehaviour
 
 	public void GetHitByPlayer()
 	{
+		if(!dead)
+		{
+	        dead = true;
+			//Update the score ~Adam
+			PlayerPrefs.SetInt("RoundScore", PlayerPrefs.GetInt("RoundScore")+100);
+			if(PlayerPrefs.GetInt("RoundScore") > PlayerPrefs.GetInt("HighScore"))
+			{
+				PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("RoundScore"));
+			}
 
-        dead = true;
+	        if (mAmmoRemaining == 0)
+	        {
 
-        if (mAmmoRemaining == 0)
-        {
+	            GetComponent<SpriteRenderer>().color = Color.black;
+	        }
+	        else
+	        {
 
-            GetComponent<SpriteRenderer>().color = Color.black;
-        }
-        else
-        {
-
-            GetComponent<SpriteRenderer>().color = Color.blue;
-        }
+	            GetComponent<SpriteRenderer>().color = Color.blue;
+	        }
+		}
 	}
 }
