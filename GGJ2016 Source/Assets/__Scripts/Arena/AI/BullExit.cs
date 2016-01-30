@@ -23,6 +23,7 @@ public class BullExit : MonoBehaviour
 			if(other.GetComponent<ArenaBull>().mExitTimer<=0f)
 			{
 				Destroy(other.gameObject);
+				FindObjectOfType<ArenaBullSpawner>().CloseGates();
 			}
 		}
 	}

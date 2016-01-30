@@ -6,25 +6,47 @@ public class ArenaBullSpawner : MonoBehaviour
 {
 	public List<BullExit> mBullExits = new List<BullExit>();
 	[SerializeField] public GameObject mBull;
-	public float mDefaultBullSpawnTime = 10f;
-	float mBullSpawnTimer = 10f;
+	public float mDefaultGateOpenTime = 10f;
+	float mBullSpawnTimer = 0.5f;
+	[SerializeField] public float mGateOpenTimer = 0.5f;
+
+	bool mGatesOpen = false;
+
+	int mActiveBulls = 0;
+
+
+	//Pickups to spawn when bull wave is over ~ADam
+	public GameObject mHealthPickup;
+	public GameObject mAmmoPickup;
 
 	// Use this for initialization
 	void Start () 
 	{
-		mBullSpawnTimer = mDefaultBullSpawnTime;
+		mGateOpenTimer = mDefaultGateOpenTime * (Random.value+0.5f)+5f;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 	
-		mBullSpawnTimer -= Time.deltaTime;
+		mGateOpenTimer -= Time.deltaTime;
+
+		if(mGateOpenTimer <= 5f && mGateOpenTimer>0f)
+		{
+			mBullSpawnTimer -= Time.deltaTime;
+			mGatesOpen = true;
+
+		}
 
 		if(mBullSpawnTimer <= 0f)
 		{
 			SpawnBull();
-			mBullSpawnTimer = mDefaultBullSpawnTime * (Random.value+0.5f);
+			mBullSpawnTimer = 0.5f;
+		}
+
+		if(mGatesOpen)
+		{
+			Camera.main.GetComponent<CameraShake>().ShakeCamera();
 		}
 	}
 
@@ -39,6 +61,26 @@ public class ArenaBullSpawner : MonoBehaviour
 		if(spawnGate !=null)
 		{
 			Instantiate(mBull,spawnGate.transform.position,Quaternion.identity);
+			mActiveBulls++;
+		}
+	}
+
+	public void CloseGates()
+	{
+		mActiveBulls--;
+		if(mActiveBulls<=0)
+		{
+			mActiveBulls = 0;
+			mGatesOpen = false;
+			mGateOpenTimer = mDefaultGateOpenTime * (Random.value+0.5f)+5f;
+			if(FindObjectOfType<ArenaPlayer>().health <4)
+			{
+				Instantiate(mHealthPickup, Random.insideUnitCircle*4f, Quaternion.identity);
+			}
+			else
+			{
+				Instantiate(mAmmoPickup, Random.insideUnitCircle*4f, Quaternion.identity);
+			}
 		}
 	}
 }

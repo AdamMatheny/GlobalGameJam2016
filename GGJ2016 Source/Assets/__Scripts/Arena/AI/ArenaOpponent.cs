@@ -42,6 +42,10 @@ public class ArenaOpponent : MonoBehaviour
 		mLookTarget = mTargetPlayer.gameObject;
 		SetMoveTarget();
 		mTomatoStands = FindObjectOfType<StandManager>().mTomatoStands;
+		mAttackTimer = mDefaultAttackTime * (Random.value + 0.5f);
+		mMoveTimer = mDefaultMoveTime * (Random.value + 0.5f);
+
+
 	}//END of Start()
 	
 	// Update is called once per frame
