@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class ArenaPlayer : MonoBehaviour {
+public class ArenaPlayer : MonoBehaviour
+{
 
     public GameObject mainCamera;
 
@@ -26,11 +27,12 @@ public class ArenaPlayer : MonoBehaviour {
     public float curTrigger;
     public float oldTrigger;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-	}
+        //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+    }
 
     public void TakeDamage(bool kill) //Take Damage and Die if necessary
     {
@@ -70,14 +72,15 @@ public class ArenaPlayer : MonoBehaviour {
             }
 
         }
-       // Destroy(this.gameObject);
+        // Destroy(this.gameObject);
 
     }
 
     // Update is called once per frame
-    void Update () { 
+    void Update()
+    {
 
-        UIText.GetComponent<Text> ().text = ("Lives: " + health + "\n" + "Ammo: " + tomatoCount); //Display Health and Ammo
+        UIText.GetComponent<Text>().text = ("Lives: " + health + "\n" + "Ammo: " + tomatoCount); //Display Health and Ammo
 
         if (health < 0)
         {
@@ -121,6 +124,6 @@ public class ArenaPlayer : MonoBehaviour {
 
         mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, mainCamera.transform.position.z);
 
-        
-	}
+
+    }
 }

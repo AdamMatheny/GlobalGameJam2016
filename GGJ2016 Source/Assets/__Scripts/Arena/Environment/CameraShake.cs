@@ -15,7 +15,7 @@ public class CameraShake : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		mStartingPosition = transform.position;
+		mStartingPosition = transform.localPosition;
 	}
 	
 	// Update is called once per frame
@@ -26,13 +26,13 @@ public class CameraShake : MonoBehaviour
 		
 		if (mShakeTime > 0 && Time.timeScale != 0f)
 		{
-			transform.position = mStartingPosition+(Random.insideUnitSphere * mStrength);
+			transform.localPosition = mStartingPosition+(Random.insideUnitSphere * mStrength);
 			mShakeTime -= Time.deltaTime;
 		}
 		else
 		{
 			mShakeTime = 0f;
-			transform.position = mStartingPosition;
+			transform.localPosition = mStartingPosition;
 		}
 	}
 	
