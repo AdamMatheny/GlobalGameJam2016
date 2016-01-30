@@ -14,7 +14,9 @@ public class EnemySpawner : MonoBehaviour {
     public ArenaPlayer mTargetPlayer;
 
     // Use this for initialization
-    void Start () {
+    void Start () 
+	{
+		PlayerPrefs.SetInt("ArenaRound", PlayerPrefs.GetInt("ArenaRound")+1);
 
         if (mTargetPlayer == null)
         {
@@ -26,7 +28,7 @@ public class EnemySpawner : MonoBehaviour {
             bullSpawner = FindObjectOfType<ArenaBullSpawner>();
         }
 
-        enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * (percent / 100));
+		enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * (percent / 100))+PlayerPrefs.GetInt("ArenaRound");
 
         for (int i = 0; i < enemyAmount; i++)
         {

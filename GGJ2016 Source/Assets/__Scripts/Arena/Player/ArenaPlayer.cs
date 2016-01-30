@@ -56,6 +56,7 @@ public class ArenaPlayer : MonoBehaviour
 
         GetComponent<SpriteRenderer>().color = Color.magenta;
         dead = true;
+		PlayerPrefs.SetInt("ArenaRound",-1);
     }
 
     void OnCollisionEnter2D(Collision2D coll) //Take Ammo

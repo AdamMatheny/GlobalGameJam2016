@@ -41,7 +41,11 @@ public class ArenaBullSpawner : MonoBehaviour
 		if(mBullSpawnTimer <= 0f)
 		{
 			SpawnBull();
-			mBullSpawnTimer = 0.5f;
+			mBullSpawnTimer = 0.5f-(PlayerPrefs.GetInt("ArenaRound")*0.05f);
+			if(mBullSpawnTimer<=0.15f)
+			{
+				mBullSpawnTimer = 0.15f;
+			}
 		}
 
 		if(mGatesOpen || mGateOpenTimer <=7f)
