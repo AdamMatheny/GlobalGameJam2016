@@ -17,7 +17,7 @@ public class TomatoStand : MonoBehaviour {
 	{
 		if(other.GetComponent<ArenaOpponent>()!=null)
 		{
-			other.GetComponent<ArenaOpponent>().mAmmoRemaining = 3;
+			other.GetComponent<ArenaOpponent>().mAmmoRemaining = 3+PlayerPrefs.GetInt("ArenaRound");
 		}
 	}
 }

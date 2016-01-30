@@ -42,6 +42,18 @@ public class ArenaOpponent : MonoBehaviour
 		mLookTarget = mTargetPlayer.gameObject;
 		SetMoveTarget();
 		mTomatoStands = FindObjectOfType<StandManager>().mTomatoStands;
+		mAttackTimer = mDefaultAttackTime * (Random.value + 0.5f);
+		mMoveTimer = mDefaultMoveTime * (Random.value + 0.5f);
+
+		//Scale for number of times the Arena has been entered in this play through ~Adam
+		mAmmoRemaining = 3+PlayerPrefs.GetInt("ArenaRound");
+		mDefaultAttackTime-=(PlayerPrefs.GetInt("ArenaRound")*0.1f);
+		if(mDefaultAttackTime<=0.15f)
+		{
+			mDefaultAttackTime = 0.15f;
+		}
+
+
 	}//END of Start()
 	
 	// Update is called once per frame
@@ -189,18 +201,26 @@ public class ArenaOpponent : MonoBehaviour
 
 	public void GetHitByPlayer()
 	{
+		if(!dead)
+		{
+	        dead = true;
+			//Update the score ~Adam
+			PlayerPrefs.SetInt("RoundScore", PlayerPrefs.GetInt("RoundScore")+100);
+			if(PlayerPrefs.GetInt("RoundScore") > PlayerPrefs.GetInt("HighScore"))
+			{
+				PlayerPrefs.SetInt("HighScore", PlayerPrefs.GetInt("RoundScore"));
+			}
 
-        dead = true;
+	        if (mAmmoRemaining == 0)
+	        {
 
-        if (mAmmoRemaining == 0)
-        {
+	            GetComponent<SpriteRenderer>().color = Color.black;
+	        }
+	        else
+	        {
 
-            GetComponent<SpriteRenderer>().color = Color.black;
-        }
-        else
-        {
-
-            GetComponent<SpriteRenderer>().color = Color.blue;
-        }
+	            GetComponent<SpriteRenderer>().color = Color.blue;
+	        }
+		}
 	}
 }

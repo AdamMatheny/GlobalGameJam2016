@@ -2,7 +2,15 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class ArenaPlayer : MonoBehaviour {
+public class ArenaPlayer : MonoBehaviour
+{
+
+    public GameObject mainCamera;
+
+    public GameObject crosshair;
+
+    //public Vector2 mousePos;
+    public Vector3 screenPos;
 
     public GameObject UIText;
 
@@ -19,56 +27,65 @@ public class ArenaPlayer : MonoBehaviour {
     public float curTrigger;
     public float oldTrigger;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
 
-    public void TakeDamage(bool kill)
+        //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+    }
+
+    public void TakeDamage(bool kill) //Take Damage and Die if necessary
     {
 
         if (kill)
         {
-
             health = 0;
         }
         else
         {
-
             health--;
         }
-
         if (health <= 0)
         {
-
             Die();
         }
+
+        mainCamera.GetComponentInChildren<CameraShake>().ShakeCamera();
+        mainCamera.GetComponentInChildren<CameraShake>().mShakeStrength = .35f;
+        mainCamera.GetComponentInChildren<CameraShake>().mShakeDuration = .3f;
     }
 
-    void Die()
+    void Die() //Kill the Player
     {
 
         GetComponent<SpriteRenderer>().color = Color.magenta;
         dead = true;
+		PlayerPrefs.SetInt("ArenaRound",-1);
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnCollisionEnter2D(Collision2D coll) //Take Ammo
     {
         if (coll.gameObject.GetComponent<ArenaOpponent>() != null)
         {
             // Debug.Log("Hit the player!");
 
-            tomatoCount += coll.gameObject.GetComponent<ArenaOpponent>().mAmmoRemaining;
-            coll.gameObject.GetComponent<ArenaOpponent>().mAmmoRemaining = 0;
+            if (coll.gameObject.GetComponent<ArenaOpponent>().dead)
+            {
+
+                tomatoCount += coll.gameObject.GetComponent<ArenaOpponent>().mAmmoRemaining;
+                coll.gameObject.GetComponent<ArenaOpponent>().mAmmoRemaining = 0;
+            }
+
         }
-       // Destroy(this.gameObject);
+        // Destroy(this.gameObject);
 
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
-        UIText.GetComponent<Text> ().text = ("Lives: " + health + "\n" + "Ammo: " + tomatoCount);
+        UIText.GetComponent<Text>().text = ("Lives: " + health + "\nAmmo: " + tomatoCount+"\nScore: "+PlayerPrefs.GetInt("RoundScore")); //Display Health and Ammo
 
         if (health < 0)
         {
@@ -80,7 +97,7 @@ public class ArenaPlayer : MonoBehaviour {
         {
 
 
-            if (Input.GetAxis("AnalogRightBumper") > .3f)
+            if (Input.GetAxis("AnalogRightBumper") > .3f) //Shoot
             {
 
                 curTrigger = 1;
@@ -95,26 +112,27 @@ public class ArenaPlayer : MonoBehaviour {
 
                 Instantiate(tomato, transform.position, transform.rotation);
                 tomatoCount--;
+
+                mainCamera.GetComponentInChildren<CameraShake>().ShakeCamera();
+                mainCamera.GetComponentInChildren<CameraShake>().mShakeStrength = .25f;
+                mainCamera.GetComponentInChildren<CameraShake>().mShakeDuration = .3f;
             }
 
-            //   direction = new Vector3(Input.GetAxis("AnalogRightHorizontal"), 0, Input.GetAxis("AnalogRightVertical"));
+            screenPos = crosshair.transform.position;
 
-            //transform.up = direction;
+            float zz = Mathf.Atan2((screenPos.y - transform.position.y), (screenPos.x - transform.position.x)) * Mathf.Rad2Deg;
 
-            direction = Mathf.Atan2(Input.GetAxis("AnalogRightVertical"), Input.GetAxis("AnalogRightHorizontal")) * Mathf.Rad2Deg;
+            transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, zz); //Rotate
 
-            transform.rotation = Quaternion.AngleAxis(direction, Vector3.forward);
-            transform.Rotate(new Vector3(0, 0, -90));
-            //   transform.rotation = new Vector3(0, 0, transform.rotation.z - 90);
+            transform.Rotate(new Vector3(0, 0, -90)); //Adust due to the image
 
-            //var rotation = Quaternion.LookRotation(direction, Vector3.up);
-            // transform.rotation = rotation;
+            transform.position += new Vector3(Input.GetAxis("AnalogLeftHorizontal") / 10, Input.GetAxis("AnalogLeftVertical") / 10); //Move
 
-            transform.position += new Vector3(Input.GetAxis("AnalogLeftHorizontal") / 10, Input.GetAxis("AnalogLeftVertical") / 10);
-
-            oldTrigger = curTrigger;
+            oldTrigger = curTrigger; //Used to see if trigger is pressed
         }
 
-        
-	}
+        mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, mainCamera.transform.position.z);
+
+
+    }
 }
