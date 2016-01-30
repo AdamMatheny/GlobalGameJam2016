@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class ArenaOpponent : MonoBehaviour 
 {
+    public bool dead;
+
 	public ArenaPlayer mTargetPlayer;
 	public int mAmmoRemaining = 3;
 	[SerializeField] private GameObject mProjectile;
@@ -45,6 +47,8 @@ public class ArenaOpponent : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+        
+
 		//Change AI state based on ammo count ~Adam
 		if(mAmmoRemaining > 0)
 		{
@@ -52,6 +56,13 @@ public class ArenaOpponent : MonoBehaviour
 		}
 		else
 		{
+            if (GetComponent<SpriteRenderer>().color == Color.blue)
+            {
+
+                GetComponent<SpriteRenderer>().color = Color.black;
+            }
+
+
 			mAIState = AIState.RELOADING;
 		}
 
@@ -89,64 +100,107 @@ public class ArenaOpponent : MonoBehaviour
 
 	void LookAtTarget()
 	{
-		if(mLookTarget != null)
-		{
-			float angle = 0;
-			
-			Vector3 relative = transform.InverseTransformPoint(mLookTarget.transform.position);
-			angle = Mathf.Atan2(relative.x, relative.y)*Mathf.Rad2Deg;
-			transform.Rotate(0,0, -angle);
-		}
+        if (!dead)
+        {
+
+            if (mLookTarget != null)
+            {
+                float angle = 0;
+
+                Vector3 relative = transform.InverseTransformPoint(mLookTarget.transform.position);
+                angle = Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
+                transform.Rotate(0, 0, -angle);
+            }
+        }
+
+		
 	}
 
 
 	void MoveToTarget()
 	{
-		transform.position = Vector2.Lerp(transform.position, mTargetPos, 0.005f*mMoveSpeed);
+        if (!dead)
+        {
+
+
+            transform.position = Vector2.Lerp(transform.position, mTargetPos, 0.005f * mMoveSpeed);
+        }
 	}
 
 	void SetMoveTarget()
 	{
-		mTargetPos = Random.insideUnitCircle * mArenaRadius;
 
-		mMoveTimer = mDefaultMoveTime * (Random.value+0.5f);
+
+        if (!dead)
+        {
+
+            mTargetPos = Random.insideUnitCircle * mArenaRadius;
+            mMoveTimer = mDefaultMoveTime * (Random.value + 0.5f);
+        }
+
+		
 	}
 
 	void ThrowTomato()
 	{
-		//Instantiate a tomato moving in the dirction the opponent is facing ~Adam
-		Instantiate(mProjectile, transform.position+transform.up, transform.rotation);
-		//Decrement ammo.  If it's now out of ammo, find the nearest tomato stand and start going to it.
-		mAmmoRemaining--;
+
+
+
+        //Instantiate a tomato moving in the dirction the opponent is facing ~Adam
+        if (!dead)
+        {
+            Instantiate(mProjectile, transform.position + transform.up, transform.rotation);
+            //Decrement ammo.  If it's now out of ammo, find the nearest tomato stand and start going to it.
+            mAmmoRemaining--;
+            mAttackTimer = mDefaultAttackTime * (Random.value + 0.5f);
+        }
 	
 
-		mAttackTimer = mDefaultAttackTime * (Random.value+0.5f);
+		
 	}
 
 	void FindNearestStand()
 	{
-		if(mTomatoStands.Count > 0)
-		{
-			float standRange = 1000f;
-			GameObject targetStand = null;
-			foreach(TomatoStand stand in mTomatoStands)
-			{
-				if(Vector2.Distance(this.gameObject.transform.position, stand.gameObject.transform.position) <= standRange)
-				{
-					standRange = Vector2.Distance(this.gameObject.transform.position, stand.gameObject.transform.position);
-					targetStand = stand.gameObject;
-				}
-			}
-			if(targetStand != null)
-			{
-				mTargetPos = targetStand.transform.position;
-				mLookTarget = targetStand;
-			}
-		}
+        if (!dead)
+        {
+
+            if (mTomatoStands.Count > 0)
+            {
+                float standRange = 1000f;
+                GameObject targetStand = null;
+                foreach (TomatoStand stand in mTomatoStands)
+                {
+                    if (Vector2.Distance(this.gameObject.transform.position, stand.gameObject.transform.position) <= standRange)
+                    {
+                        standRange = Vector2.Distance(this.gameObject.transform.position, stand.gameObject.transform.position);
+                        targetStand = stand.gameObject;
+                    }
+                }
+                if (targetStand != null)
+                {
+                    mTargetPos = targetStand.transform.position;
+                    mLookTarget = targetStand;
+                }
+            }
+        }
+
+		
 	}
 
-	void GetHitByPlayer()
+	public void GetHitByPlayer()
 	{
 
+        dead = true;
+
+        if (mAmmoRemaining == 0)
+        {
+
+            GetComponent<SpriteRenderer>().color = Color.black;
+        }
+        else
+        {
+
+            GetComponent<SpriteRenderer>().color = Color.blue;
+        }
 	}
 }

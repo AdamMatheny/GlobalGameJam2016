@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ArenaPlayer : MonoBehaviour {
 
+    public int tomatoCount;
+
     public float direction;
 
     public GameObject tomato;
@@ -14,9 +16,22 @@ public class ArenaPlayer : MonoBehaviour {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.GetComponent<ArenaOpponent>() != null)
+        {
+            // Debug.Log("Hit the player!");
+
+            tomatoCount += coll.gameObject.GetComponent<ArenaOpponent>().mAmmoRemaining;
+            coll.gameObject.GetComponent<ArenaOpponent>().mAmmoRemaining = 0;
+        }
+       // Destroy(this.gameObject);
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         if (Input.GetAxis("AnalogRightBumper") > .3f)
         {
@@ -28,10 +43,11 @@ public class ArenaPlayer : MonoBehaviour {
             curTrigger = 0;
         }
 
-        if (curTrigger == 1 && oldTrigger == 0)
+        if (curTrigger == 1 && oldTrigger == 0 && tomatoCount > 0)
         {
 
             Instantiate(tomato, transform.position, transform.rotation);
+            tomatoCount--;
         }
 
      //   direction = new Vector3(Input.GetAxis("AnalogRightHorizontal"), 0, Input.GetAxis("AnalogRightVertical"));
