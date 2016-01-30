@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerUpdate : MonoBehaviour {
 
-	public Rigidbody2D rb2d;
+	Rigidbody2D rb2d;
 	public int JumpForce=1;
 	public float MoveSpeed=1f;
 	bool CanJump=true;
@@ -15,6 +15,7 @@ public class PlayerUpdate : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		anim=GetComponent<Animator>();
+		rb2d=GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
@@ -32,15 +33,24 @@ public class PlayerUpdate : MonoBehaviour {
 		{anim.Play(animLanding);}
 
 		rb2d.velocity=new Vector2(MoveSpeed,rb2d.velocity.y);
+
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (col.gameObject.tag=="Ground")
-		{anim.Play(animRun); CanJump=true; }
-		if (col.gameObject.tag=="Enemy")
-		{Application.LoadLevel ("running_stage"); }
+		anim.Play(animRun);
 	}
+	
+	void OnCollisionStay2D(Collision2D col)
+	{
+		//if player collides with the ground
+		if (col.gameObject.tag == "Ground")
+		{  CanJump = true; }
+		//if player collides with an enemy.
+		if (col.gameObject.tag == "Enemy")
+		{ Application.LoadLevel("running_stage"); }
+	}
+
 	void OnCollisionExit2D(Collision2D col)
 	{
 		CanJump=false;
