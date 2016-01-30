@@ -3,6 +3,13 @@ using System.Collections;
 
 public class ArenaPlayer : MonoBehaviour {
 
+    public float direction;
+
+    public GameObject tomato;
+
+    public float curTrigger;
+    public float oldTrigger;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -10,6 +17,38 @@ public class ArenaPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        if (Input.GetAxis("AnalogRightBumper") > .3f)
+        {
+
+            curTrigger = 1;
+        }
+        else
+        {
+            curTrigger = 0;
+        }
+
+        if (curTrigger == 1 && oldTrigger == 0)
+        {
+
+            Instantiate(tomato, transform.position, transform.rotation);
+        }
+
+     //   direction = new Vector3(Input.GetAxis("AnalogRightHorizontal"), 0, Input.GetAxis("AnalogRightVertical"));
+
+        //transform.up = direction;
+
+        direction = Mathf.Atan2(Input.GetAxis("AnalogRightVertical"), Input.GetAxis("AnalogRightHorizontal")) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.AngleAxis(direction, Vector3.forward);
+        transform.Rotate(new Vector3(0, 0, -90));
+     //   transform.rotation = new Vector3(0, 0, transform.rotation.z - 90);
+
+        //var rotation = Quaternion.LookRotation(direction, Vector3.up);
+        // transform.rotation = rotation;
+
+        transform.position += new Vector3(Input.GetAxis("AnalogLeftHorizontal") / 10, Input.GetAxis("AnalogLeftVertical") / 10);
+
+        oldTrigger = curTrigger;
 	}
 }
