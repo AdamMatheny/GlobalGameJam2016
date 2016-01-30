@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class ArenaPlayer : MonoBehaviour {
+
+    public GameObject UIText;
 
     public bool dead;
 
@@ -65,8 +68,17 @@ public class ArenaPlayer : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        UIText.GetComponent<Text> ().text = ("Lives: " + health + "\n" + "Ammo: " + tomatoCount);
+
+        if (health < 0)
+        {
+
+            health = 0;
+        }
+
         if (!dead)
         {
+
 
             if (Input.GetAxis("AnalogRightBumper") > .3f)
             {
