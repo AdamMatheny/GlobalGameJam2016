@@ -119,6 +119,8 @@ public class ArenaPlayer : MonoBehaviour {
             oldTrigger = curTrigger; //Used to see if trigger is pressed
         }
 
+        mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, mainCamera.transform.position.z);
+
         
 	}
 }

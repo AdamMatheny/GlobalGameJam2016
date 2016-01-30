@@ -20,6 +20,6 @@ public class Crosshair : MonoBehaviour {
         x = Input.GetAxis("Mouse X");
         y = Input.GetAxis("Mouse Y");
 
-        transform.position = new Vector3(x * 10, y * 10, transform.position.z);
+        transform.localPosition = new Vector3((x * 4), (y * 4), transform.localPosition.z);
     }
 }
