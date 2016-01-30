@@ -5,9 +5,13 @@ public class GoodTomatoCode : MonoBehaviour {
 
     public float move;
 
+    public float randomRotateChange;
+
 	// Use this for initialization
 	void Start () {
-	
+
+        randomRotateChange = Random.Range(-10, 10);
+        transform.Rotate(0, 0, randomRotateChange);
 	}
 	
 	// Update is called once per frame
