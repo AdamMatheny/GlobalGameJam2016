@@ -5,7 +5,11 @@ using System.Collections.Generic;
 public class ArenaOpponent : MonoBehaviour 
 {
 
-    //public bool gameStarted;
+    public GameObject animStuff;
+    public GameObject myAnim;
+
+    public Sprite deadAngel;
+    public Sprite blackAngel;
 
     public bool dead;
 
@@ -38,12 +42,15 @@ public class ArenaOpponent : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+
+        myAnim = Instantiate(animStuff, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+
 		if(mTargetPlayer == null)
 		{
 			mTargetPlayer = FindObjectOfType<ArenaPlayer>();
 		}
 
-        mTargetPlayer.GetComponent<ArenaPlayer>().gameStarted = true;
+        //mTargetPlayer.GetComponent<ArenaPlayer>().gameStarted = true;
 
 		mLookTarget = mTargetPlayer.gameObject;
 		SetMoveTarget();
@@ -65,24 +72,56 @@ public class ArenaOpponent : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+
+        if (dead)
+        {
+
+            if (myAnim.GetComponent<Animator>() != null)
+            {
+
+                myAnim.GetComponent<Animator>().enabled = false;
+            }
+        }
+
+        myAnim.transform.position = transform.position;
+
+        if (!dead)
+        {
+
+            if (mTargetPlayer.transform.position.x > transform.position.x)
+            {
+
+                myAnim.transform.localScale = new Vector3(3.56f, myAnim.transform.localScale.y, myAnim.transform.localScale.z);
+            }
+
+            if (mTargetPlayer.transform.position.x < transform.position.x)
+            {
+
+                myAnim.transform.localScale = new Vector3(-3.56f, myAnim.transform.localScale.y, myAnim.transform.localScale.z);
+            }
+        }
+
         
 
-		//Change AI state based on ammo count ~Adam
-		if(mAmmoRemaining > 0)
+        //Change AI state based on ammo count ~Adam
+        if (mAmmoRemaining > 0)
 		{
 			mAIState = AIState.ATTACKING;
 		}
 		else
 		{
-            if (GetComponent<SpriteRenderer>().color == Color.blue)
-            {
+           // if (GetComponent<SpriteRenderer>().color == Color.blue)
+            //{
 
-                GetComponent<SpriteRenderer>().color = Color.black;
-                Destroy(gameObject);
-            }
+                //GetComponent<SpriteRenderer>().color = Color.black;
+                myAnim.GetComponent<SpriteRenderer>().sprite = blackAngel;
+                DontDestroyOnLoad(myAnim);
+            GetComponent<ArenaOpponent>().enabled = false;
+            //Destroy(gameObject);
+            //}
 
 
-			mAIState = AIState.RELOADING;
+            mAIState = AIState.RELOADING;
 		}
 
 		//If attacking, move around and throw tomatos
@@ -143,6 +182,18 @@ public class ArenaOpponent : MonoBehaviour
 
 
             transform.position = Vector2.Lerp(transform.position, mTargetPos, 0.005f * mMoveSpeed);
+
+           /* if (mTargetPos.x > transform.position.x)
+            {
+
+                myAnim.transform.localScale = new Vector3(3.56f, myAnim.transform.localScale.y, myAnim.transform.localScale.z);
+            }
+
+            if (mTargetPos.x < transform.position.x)
+            {
+
+                myAnim.transform.localScale = new Vector3(-3.56f, myAnim.transform.localScale.y, myAnim.transform.localScale.z);
+            }*/
         }
 	}
 
@@ -168,6 +219,9 @@ public class ArenaOpponent : MonoBehaviour
         //Instantiate a tomato moving in the dirction the opponent is facing ~Adam
         if (!dead)
         {
+
+            myAnim.GetComponent<Animator>().Play("Thow");
+
             Instantiate(mProjectile, transform.position + transform.up, transform.rotation);
             //Decrement ammo.  If it's now out of ammo, find the nearest tomato stand and start going to it.
             mAmmoRemaining--;
@@ -221,13 +275,17 @@ public class ArenaOpponent : MonoBehaviour
 	        if (mAmmoRemaining == 0)
 	        {
 
-	            GetComponent<SpriteRenderer>().color = Color.black;
-                Destroy(gameObject);
+                // GetComponent<SpriteRenderer>().color = Color.black;
+               myAnim.GetComponent<SpriteRenderer>().sprite = blackAngel;
+                DontDestroyOnLoad(myAnim);
+                GetComponent<ArenaOpponent>().enabled = false;
+                //Destroy(gameObject);
 	        }
 	        else
 	        {
 
-	            GetComponent<SpriteRenderer>().color = Color.blue;
+                //GetComponent<SpriteRenderer>().color = Color.blue;
+                myAnim.GetComponent<SpriteRenderer>().sprite = deadAngel;
 	        }
 		}
 	}
