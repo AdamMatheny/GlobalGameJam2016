@@ -19,6 +19,9 @@ public class GroundGenUpdate : MonoBehaviour {
 		{GenerateDelay--;}
 		if (GenerateDelay==0)
 		{
+
+            Debug.Log("Created it");
+
 			Instantiate(GroundLaunch[BType], transform.position, Quaternion.identity);
 
 			GenerateDelay=DefaultDelay;
