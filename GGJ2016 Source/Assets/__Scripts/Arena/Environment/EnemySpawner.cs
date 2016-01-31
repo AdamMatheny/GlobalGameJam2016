@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
 
         //enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * (percent / 100)) + PlayerPrefs.GetInt("ArenaRound");
 
-        enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * .7f);
+        enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * .25f);
 
 
 		if(enemyAmount > 0)
