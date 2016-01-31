@@ -22,7 +22,7 @@ public class HighscoreUI : MonoBehaviour{
 	// Use this for initialization
 	void Start () {
 		bind ();
-		playerScore = PlayerPrefs.GetInt ("RoundScore", 0);
+		playerScore = PlayerPrefs.GetInt ("RoundScore");
 		if (highscoreManager.isNewHighscore (playerScore)) {
 			highscoreInputPanel.SetActive(true);
 			highscoreScoreLabel.text = playerScore.ToString();
