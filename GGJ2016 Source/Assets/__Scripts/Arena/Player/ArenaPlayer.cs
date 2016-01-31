@@ -53,8 +53,8 @@ public class ArenaPlayer : MonoBehaviour
     {
 
         yield return new WaitForSeconds(2f);
-
-        Application.LoadLevel(0);
+		
+        Application.LoadLevel(1);
     }
 
     public void TakeDamage(bool kill) //Take Damage and Die if necessary
@@ -89,6 +89,7 @@ public class ArenaPlayer : MonoBehaviour
     void Die() //Kill the Player
     {
 
+<<<<<<< HEAD
         //GetComponent<SpriteRenderer>().color = Color.magenta;
 
         if (!dead)
@@ -103,6 +104,12 @@ public class ArenaPlayer : MonoBehaviour
         }
 
         
+=======
+        GetComponent<SpriteRenderer>().color = Color.magenta;
+        dead = true;
+		PlayerPrefs.SetInt("ArenaRound",-1);
+		Application.LoadLevel(4);
+>>>>>>> origin/master
     }
 
     void OnCollisionEnter2D(Collision2D coll) //Take Ammo
