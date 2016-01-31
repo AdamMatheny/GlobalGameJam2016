@@ -45,6 +45,7 @@ public class ArenaPlayer : MonoBehaviour
     void Start()
     {
         ammoKeeper = GameObject.FindGameObjectWithTag("Ammo");
+        Destroy(ammoKeeper, 1);
         tomatoCount = ammoKeeper.GetComponent<Ammo>().ammo;
         //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
@@ -54,7 +55,7 @@ public class ArenaPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 		
-        Application.LoadLevel(1);
+        Application.LoadLevel(4);
     }
 
     public void TakeDamage(bool kill) //Take Damage and Die if necessary
@@ -88,6 +89,8 @@ public class ArenaPlayer : MonoBehaviour
 
     void Die() //Kill the Player
     {
+
+        //Destroy(ammoKeeper);
 
         //GetComponent<SpriteRenderer>().color = Color.magenta;
 
