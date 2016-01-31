@@ -19,21 +19,28 @@ public class ArenaPlayerGraphics : MonoBehaviour
 		{
 			transform.position = mPlayerTransform.position;
 
-			if(mCrossHairsTransform !=null)
-			{
-				if(mCrossHairsTransform.position.x > mPlayerTransform.position.x)
-				{
-					transform.localScale = mRightScale;
-				}
-				else if(mCrossHairsTransform.position.x < mPlayerTransform.position.x)
-				{
-					transform.localScale = mLeftScale;
-				}
-			}
+            if (mPlayerTransform.GetComponent<ArenaPlayer>().dead == false)
+            {
+
+                if (mCrossHairsTransform != null)
+                {
+                    if (mCrossHairsTransform.position.x > mPlayerTransform.position.x)
+                    {
+                        transform.localScale = mRightScale;
+                    }
+                    else if (mCrossHairsTransform.position.x < mPlayerTransform.position.x)
+                    {
+                        transform.localScale = mLeftScale;
+                    }
+                }
+
+                mMoving = (Input.GetAxis("AnalogLeftHorizontal") != 0 || Input.GetAxis("AnalogLeftVertical") != 0);
+                mAnimator.SetBool("Moving", mMoving);
+            }
+
 		}
 
-		mMoving = (Input.GetAxis("AnalogLeftHorizontal") != 0 || Input.GetAxis("AnalogLeftVertical") != 0);
-		mAnimator.SetBool("Moving", mMoving);
+		
 		
 	}
 
@@ -41,28 +48,33 @@ public class ArenaPlayerGraphics : MonoBehaviour
 	{
 		bool mThrowUp = (mCrossHairsTransform.position.y >= mPlayerTransform.position.y);
 
-		if(mMoving)
-		{
-			if(mThrowUp)
-			{
-				mAnimator.Play ("ArenaRightRunThrowUp");
-			}
-			else
-			{
-				mAnimator.Play ("ArenaRightRunThrowDown");
-			}
-		}
-		else
-		{
-			if(mThrowUp)
-			{
-				mAnimator.Play ("ArenaIdleThrowUp");
-			}
-			else
-			{
-				mAnimator.Play ("ArenaIdleThrowDown");
-			}
-		}
+        if (mPlayerTransform.GetComponent<ArenaPlayer>().dead == false)
+        {
+
+
+            if (mMoving)
+            {
+                if (mThrowUp)
+                {
+                    mAnimator.Play("ArenaRightRunThrowUp");
+                }
+                else
+                {
+                    mAnimator.Play("ArenaRightRunThrowDown");
+                }
+            }
+            else
+            {
+                if (mThrowUp)
+                {
+                    mAnimator.Play("ArenaIdleThrowUp");
+                }
+                else
+                {
+                    mAnimator.Play("ArenaIdleThrowDown");
+                }
+            }
+        }
 
 	}
 }
