@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 9fb83aaabb1c58947a18d0d194aaa559
-timeCreated: 1454187755
+guid: cb8fa786bd246094b9e7dc14c81a6a8f
+timeCreated: 1454222476
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Baby Blue_0
-    21300002: Baby Blue_1
-    21300004: Baby Blue_2
+    21300000: Baby Pink_0
+    21300002: Baby Pink_1
+    21300004: Baby Pink_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: 0
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -53,7 +53,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Baby Blue_0
+    - name: Baby Pink_0
       rect:
         serializedVersion: 2
         x: 0
@@ -63,7 +63,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Baby Blue_1
+    - name: Baby Pink_1
       rect:
         serializedVersion: 2
         x: 32
@@ -73,7 +73,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Baby Blue_2
+    - name: Baby Pink_2
       rect:
         serializedVersion: 2
         x: 64
