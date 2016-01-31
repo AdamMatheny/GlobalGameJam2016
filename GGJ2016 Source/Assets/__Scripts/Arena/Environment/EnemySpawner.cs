@@ -78,20 +78,26 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
 
-		if(enemyAmount > 0)
-		{
-			mArenaSpawnTimer -= Time.deltaTime;
-			if(mArenaSpawnTimer <= 0f)
-			{
-				SpawnAtGate();
-				enemyAmount--;
-				mArenaSpawnTimer = mArenaSpawnTimerDefault;
-				if(mArenaSpawnTimerDefault >0.1f)
-				{
-					mArenaSpawnTimerDefault -= (0.1f +(PlayerPrefs.GetInt("ArenaRound")*0.05f) );
-				}
-			}
-		}
+        if (enemyAmount > 0)
+        {
+            mArenaSpawnTimer -= Time.deltaTime;
+            if (mArenaSpawnTimer <= 0f)
+            {
+                SpawnAtGate();
+                enemyAmount--;
+                mArenaSpawnTimer = mArenaSpawnTimerDefault;
+                if (mArenaSpawnTimerDefault > 0.1f)
+                {
+                    mArenaSpawnTimerDefault -= (0.1f + (PlayerPrefs.GetInt("ArenaRound") * 0.05f));
+                }
+            }
+        }
+
+        if (enemyAmount == 1)
+        {
+
+            mTargetPlayer.GetComponent<ArenaPlayer>().gameStarted = true;
+        }
 
     }
 
