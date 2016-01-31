@@ -32,7 +32,7 @@ public class PlayerUpdate : MonoBehaviour {
 		rb2d=GetComponent<Rigidbody2D>();
 		
 		TomatoCount=0;
-		SetTomatoCountText();
+		//SetTomatoCountText();
 	}
 	
 	// Update is called once per frame
@@ -78,7 +78,7 @@ public class PlayerUpdate : MonoBehaviour {
 		
 		if (BabyJumpTarget.tag=="Enemy" )
 		{
-			TomatoCount++; SetTomatoCountText();
+			TomatoCount++; //SetTomatoCountText();
 			//Application.LoadLevel("running_stage");
 		}
 	}
@@ -88,7 +88,7 @@ public class PlayerUpdate : MonoBehaviour {
 		anim.Play(animRun);
 		//if player collides with an enemy.
 		if (col.gameObject.tag == "Enemy")
-		{ ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(1); }
+		{ ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(2); }
 	}
 	
 	void OnCollisionStay2D(Collision2D col)
@@ -98,7 +98,7 @@ public class PlayerUpdate : MonoBehaviour {
 		{  CanJump = true; }
 		//if player collides with an enemy.
 		if (col.gameObject.tag == "Enemy")
-        { ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(1); }
+        { ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(2); }
     }
 	
 	void OnCollisionExit2D(Collision2D col)
