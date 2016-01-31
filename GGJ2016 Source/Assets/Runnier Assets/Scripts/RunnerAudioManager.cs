@@ -40,16 +40,16 @@ public class RunnerAudioManager : MonoBehaviour {
 						audio.Play(); 
 						mTrackNumber=1;
 						BGU=BG.GetComponent<BabyGenUpdate>();
-				BGU.StartGenerating=true; BGU.ElapsedTime=Time.time + 1;
+					//start generating babies and counting time.
+						BGU.StartGenerating=true;
+						BGU.ElapsedTime=Time.time + 1;
+						BGU.TotalTime = Time.time;
 					break;
 				case 1:
 						audio.clip = otherClip[1];
 						audio.Play();
-						mTrackNumber=2;
-					break;
-				case 2:
-					audio.clip = otherClip[1];
-					audio.Play();
+					//start counting down on a second timer.
+						BGU.SecondBGMTotalTime = Time.time;
 					break;
 			}
 		}
