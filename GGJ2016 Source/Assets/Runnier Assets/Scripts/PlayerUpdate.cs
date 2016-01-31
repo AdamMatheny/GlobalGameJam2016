@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class PlayerUpdate : MonoBehaviour {
 
     public GameObject ammoKeeper;
-	
+	public AudioClip[] JumpAudioClip=new AudioClip[3];
+	AudioSource audio;
+
 	Rigidbody2D rb2d;
 	GameObject BabyJumpTarget;
 	BabyUpdate BU;
@@ -25,6 +27,7 @@ public class PlayerUpdate : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		audio = GetComponent<AudioSource>();
 		anim=GetComponent<Animator>();
 		rb2d=GetComponent<Rigidbody2D>();
 		
@@ -34,30 +37,28 @@ public class PlayerUpdate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		bool jump=Input.GetButtonDown("Fire1");
+
 		if (Input.GetAxis("AnalogRightBumper") > .5f)
-		{
-			
+		{			
 			currTrigger = true;
 		}
 		else
-		{
-			
+		{			
 			currTrigger = false;
 		}
 		
 		if (currTrigger && !pastTrigger && CanJump)
-		{
-			
+		{			
+			PlayRandomJumpClip();
 			anim.Play(animJumpUp); CanJump = false;
 			rb2d.AddForce(Vector2.up * (JumpForce * 70));
 		}
-		
-		bool jump=Input.GetButtonDown("Fire1");
-		
+
 		//make the player when the jump button is pressed.
 		if (jump==true && CanJump==true)
 		{
+			PlayRandomJumpClip();
 			anim.Play(animJumpUp); CanJump=false;
 			rb2d.AddForce(Vector2.up * (JumpForce*70) );
 		}
@@ -87,7 +88,7 @@ public class PlayerUpdate : MonoBehaviour {
 		anim.Play(animRun);
 		//if player collides with an enemy.
 		if (col.gameObject.tag == "Enemy")
-		{ ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(1); }
+		{ ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(2); }
 	}
 	
 	void OnCollisionStay2D(Collision2D col)
@@ -97,7 +98,7 @@ public class PlayerUpdate : MonoBehaviour {
 		{  CanJump = true; }
 		//if player collides with an enemy.
 		if (col.gameObject.tag == "Enemy")
-        { ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(1); }
+        { ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(2); }
     }
 	
 	void OnCollisionExit2D(Collision2D col)
@@ -108,6 +109,14 @@ public class PlayerUpdate : MonoBehaviour {
 	void SetTomatoCountText()
 	{
 		UIText.GetComponent<Text>().text = ("x"+TomatoCount.ToString ()); //Display Health and Ammo	
-
 	}
+
+	void PlayRandomJumpClip()
+	{
+		int JType=Random.Range(0, 3);		
+		audio.clip = JumpAudioClip[JType];
+		audio.Play(); 
+	}
+
 }
+		
