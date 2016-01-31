@@ -11,9 +11,6 @@ public class BabyGenUpdate : MonoBehaviour
 	public bool StartGenerating=false;
 	public GameObject[] BabyLaunch=new GameObject[6];
 
-	public GameObject UIText;
-
-
 	#region These didn't seem to be doing anything anymore ~Adam
 	public float ElapsedTime = 0f;
 	public float TotalTime = 0f;
@@ -111,12 +108,6 @@ public class BabyGenUpdate : MonoBehaviour
 				mBabySpawnTimer = 0f;
 			}
 		}
-		//SetTomatoCountText(totalTimePassed);
-	}
-
-	void SetTomatoCountText(float ts)
-	{
-		UIText.GetComponent<Text>().text = ("time: "+ts.ToString ()); //Display Health and Ammo	
 	}
 
 }
