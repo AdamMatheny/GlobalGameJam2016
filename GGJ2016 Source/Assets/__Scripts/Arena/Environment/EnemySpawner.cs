@@ -88,7 +88,7 @@ public class EnemySpawner : MonoBehaviour
 				mArenaSpawnTimer = mArenaSpawnTimerDefault;
 				if(mArenaSpawnTimerDefault >0.1f)
 				{
-					mArenaSpawnTimerDefault -=0.2f;
+					mArenaSpawnTimerDefault -= (0.1 +(PlayerPrefs.GetInt("ArenaRound")*0.05f) );
 				}
 			}
 		}
