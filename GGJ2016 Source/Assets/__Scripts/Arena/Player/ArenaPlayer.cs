@@ -30,6 +30,9 @@ public class ArenaPlayer : MonoBehaviour
     public float curTrigger;
     public float oldTrigger;
 
+
+	public ArenaPlayerGraphics mPlayerGraphics;
+
     // Use this for initialization
     void Start()
     {
@@ -113,7 +116,7 @@ public class ArenaPlayer : MonoBehaviour
 
             if (curTrigger == 1 && oldTrigger == 0 && tomatoCount > 0)
             {
-
+				mPlayerGraphics.mPlayThrowAnim();
                 Instantiate(tomato, transform.position, transform.rotation);
                 tomatoCount--;
 
