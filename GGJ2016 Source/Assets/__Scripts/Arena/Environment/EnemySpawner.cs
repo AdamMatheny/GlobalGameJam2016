@@ -51,7 +51,11 @@ public class EnemySpawner : MonoBehaviour
         enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * .7f);
 
 
-
+		if(enemyAmount > 0)
+		{
+			SpawnAtGate();
+			enemyAmount--;
+		}
 
 //        for (int i = 0; i < enemyAmount; i++)
 //        {
@@ -79,16 +83,7 @@ public class EnemySpawner : MonoBehaviour
 			mArenaSpawnTimer -= Time.deltaTime;
 			if(mArenaSpawnTimer <= 0f)
 			{
-				GameObject spawnGate = null;
-				if (bullSpawner.mBullExits.Count > 0)
-				{
-					spawnGate = bullSpawner.mBullExits[Mathf.FloorToInt(Random.Range(0, bullSpawner.mBullExits.Count))].gameObject;
-				}
-				
-				if (spawnGate != null)
-				{
-					Instantiate(enemy, spawnGate.transform.position, Quaternion.identity);
-				}
+				SpawnAtGate();
 				enemyAmount--;
 				mArenaSpawnTimer = mArenaSpawnTimerDefault;
 				if(mArenaSpawnTimerDefault >0.1f)
@@ -99,4 +94,18 @@ public class EnemySpawner : MonoBehaviour
 		}
 
     }
+
+	void SpawnAtGate()
+	{
+		GameObject spawnGate = null;
+		if (bullSpawner.mBullExits.Count > 0)
+		{
+			spawnGate = bullSpawner.mBullExits[Mathf.FloorToInt(Random.Range(0, bullSpawner.mBullExits.Count))].gameObject;
+		}
+		
+		if (spawnGate != null)
+		{
+			Instantiate(enemy, spawnGate.transform.position, Quaternion.identity);
+		}
+	}
 }

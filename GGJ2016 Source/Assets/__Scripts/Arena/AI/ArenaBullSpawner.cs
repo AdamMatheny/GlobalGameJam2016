@@ -8,7 +8,7 @@ public class ArenaBullSpawner : MonoBehaviour
 	[SerializeField] public GameObject mBull;
 	public float mDefaultGateOpenTime = 20f;
 	float mBullSpawnTimer = 0.5f;
-	[SerializeField] public float mGateOpenTimer = 0.5f;
+	[SerializeField] public float mGateOpenTimer = 20;
 
 	bool mGatesOpen = false;
 
@@ -32,7 +32,7 @@ public class ArenaBullSpawner : MonoBehaviour
 //			mDefaultGateOpenTime = 5f;
 //		}
 
-		mGateOpenTimer = mDefaultGateOpenTime;
+		mGateOpenTimer = mDefaultGateOpenTime+5f;
 		mDefaultBullCount += PlayerPrefs.GetInt("ArenaRound");
 	}
 	
@@ -91,7 +91,7 @@ public class ArenaBullSpawner : MonoBehaviour
 		{
 			mActiveBulls = 0;
 			mGatesOpen = false;
-			mGateOpenTimer = mDefaultGateOpenTime;
+			mGateOpenTimer = mDefaultGateOpenTime+5f;
 			if(FindObjectOfType<ArenaPlayer>().health <4)
 			{
 				Instantiate(mHealthPickup, Random.insideUnitCircle*4f, Quaternion.identity);
