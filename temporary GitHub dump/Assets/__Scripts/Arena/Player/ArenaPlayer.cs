@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
+
+
 public class ArenaPlayer : MonoBehaviour
 {
 
