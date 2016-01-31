@@ -6,6 +6,9 @@ using System.Collections;
 
 public class ArenaPlayer : MonoBehaviour
 {
+    public bool notWon = true;
+
+    public bool gameStarted;
     public GameObject ammoKeeper;
 
     public GameObject mainCamera;
@@ -39,6 +42,14 @@ public class ArenaPlayer : MonoBehaviour
         ammoKeeper = GameObject.FindGameObjectWithTag("Ammo");
         tomatoCount = ammoKeeper.GetComponent<Ammo>().ammo;
         //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+    }
+
+    IEnumerator Win()
+    {
+
+        yield return new WaitForSeconds(2f);
+
+        Application.LoadLevel(0);
     }
 
     public void TakeDamage(bool kill) //Take Damage and Die if necessary
@@ -91,6 +102,29 @@ public class ArenaPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        ArenaOpponent[] enemies = GameObject.FindObjectsOfType<ArenaOpponent>();
+
+        notWon = false;
+
+        foreach (ArenaOpponent enemy in enemies)
+        {
+
+            if(enemy.dead == false)
+            {
+
+
+                notWon = true;
+            }
+        }
+
+        if (notWon == false)
+        {
+            if (dead == false && gameStarted)
+            { Debug.Log("VICTORY!"); StartCoroutine(Win()); }
+        }
+
+        
 
         UIText.GetComponent<Text>().text = ("Lives: " + health + "\nAmmo: " + tomatoCount+"\nScore: "+PlayerPrefs.GetInt("RoundScore")); //Display Health and Ammo
 

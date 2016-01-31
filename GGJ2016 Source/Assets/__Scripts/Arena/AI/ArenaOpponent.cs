@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class ArenaOpponent : MonoBehaviour 
 {
+
+    //public bool gameStarted;
+
     public bool dead;
 
 	public ArenaPlayer mTargetPlayer;
@@ -39,6 +42,9 @@ public class ArenaOpponent : MonoBehaviour
 		{
 			mTargetPlayer = FindObjectOfType<ArenaPlayer>();
 		}
+
+        mTargetPlayer.GetComponent<ArenaPlayer>().gameStarted = true;
+
 		mLookTarget = mTargetPlayer.gameObject;
 		SetMoveTarget();
 		mTomatoStands = FindObjectOfType<StandManager>().mTomatoStands;
@@ -72,6 +78,7 @@ public class ArenaOpponent : MonoBehaviour
             {
 
                 GetComponent<SpriteRenderer>().color = Color.black;
+                Destroy(gameObject);
             }
 
 
@@ -215,6 +222,7 @@ public class ArenaOpponent : MonoBehaviour
 	        {
 
 	            GetComponent<SpriteRenderer>().color = Color.black;
+                Destroy(gameObject);
 	        }
 	        else
 	        {
