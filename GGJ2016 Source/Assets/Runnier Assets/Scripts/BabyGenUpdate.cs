@@ -47,7 +47,7 @@ public class BabyGenUpdate : MonoBehaviour
 	{
 		//tells us when a second passes.
 		ElapsedTime = Time.time + 1;
-		//tells us the total time passed sinc ethe intro BGM finished.
+		//tells us the total time passed since the scene started.
 		TotalTime = Time.time;
 		//tells us how much time passes since the second BGM started
 		SecondBGMTotalTime = Time.time;
@@ -59,13 +59,16 @@ public class BabyGenUpdate : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		int BType=Random.Range(0, 6); 
+		int BType=Random.Range(0, 5); 
 		//get the time passed since the last second.
 		float timeSec = ElapsedTime - Time.time;
 		//get the amount of passed since the last second in an integer, a percentage of a second.
 		int timePercent=(int)(timeSec*100);
 		//get the total amount of time passed in seconds since the intro BGM finished.
 		float totalTimePassed=TotalTime - Time.time;
+
+		if (totalTimePassed<-2)
+		{StartGenerating=true;}
 
 		if (StartGenerating==true)
 		{

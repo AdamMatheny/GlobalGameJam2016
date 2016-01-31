@@ -50,17 +50,17 @@ public class PlayerUpdate : MonoBehaviour {
 		
 		if (currTrigger && !pastTrigger && CanJump)
 		{			
-			PlayRandomJumpClip();
+			//PlayRandomJumpClip();
 			anim.Play(animJumpUp); CanJump = false;
-			rb2d.AddForce(Vector2.up * (JumpForce * 70));
+			rb2d.AddForce(Vector2.up * (JumpForce * 66));
 		}
 
 		//make the player when the jump button is pressed.
 		if (jump==true && CanJump==true)
 		{
-			PlayRandomJumpClip();
+			//PlayRandomJumpClip();
 			anim.Play(animJumpUp); CanJump=false;
-			rb2d.AddForce(Vector2.up * (JumpForce*70) );
+			rb2d.AddForce(Vector2.up * (JumpForce*66) );
 		}
 		//when the player is falling, set the animation landing.
 		if (rb2d.velocity.y<0 && CanJump==false)
