@@ -14,6 +14,9 @@ public class EnemySpawner : MonoBehaviour
 
     public ArenaPlayer mTargetPlayer;
 
+	float mArenaSpawnTimer = 2f;
+	public float mArenaSpawnTimerDefault = 2f;
+
     // Use this for initialization
     void Start()
     {
@@ -21,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
         StartCoroutine(uheuhf());
 
+		mArenaSpawnTimer = mArenaSpawnTimerDefault;
         /**/
 
         // foreach()
@@ -49,19 +53,19 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-        for (int i = 0; i < enemyAmount; i++)
-        {
-            GameObject spawnGate = null;
-            if (bullSpawner.mBullExits.Count > 0)
-            {
-                spawnGate = bullSpawner.mBullExits[Mathf.FloorToInt(Random.Range(0, bullSpawner.mBullExits.Count))].gameObject;
-            }
-
-            if (spawnGate != null)
-            {
-                Instantiate(enemy, spawnGate.transform.position, Quaternion.identity);
-            }
-        }
+//        for (int i = 0; i < enemyAmount; i++)
+//        {
+//            GameObject spawnGate = null;
+//            if (bullSpawner.mBullExits.Count > 0)
+//            {
+//                spawnGate = bullSpawner.mBullExits[Mathf.FloorToInt(Random.Range(0, bullSpawner.mBullExits.Count))].gameObject;
+//            }
+//
+//            if (spawnGate != null)
+//            {
+//                Instantiate(enemy, spawnGate.transform.position, Quaternion.identity);
+//            }
+//        }
 
         //print("Ok");
     }
@@ -69,6 +73,30 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+		if(enemyAmount > 0)
+		{
+			mArenaSpawnTimer -= Time.deltaTime;
+			if(mArenaSpawnTimer <= 0f)
+			{
+				GameObject spawnGate = null;
+				if (bullSpawner.mBullExits.Count > 0)
+				{
+					spawnGate = bullSpawner.mBullExits[Mathf.FloorToInt(Random.Range(0, bullSpawner.mBullExits.Count))].gameObject;
+				}
+				
+				if (spawnGate != null)
+				{
+					Instantiate(enemy, spawnGate.transform.position, Quaternion.identity);
+				}
+				enemyAmount--;
+				mArenaSpawnTimer = mArenaSpawnTimerDefault;
+				if(mArenaSpawnTimerDefault >0.1f)
+				{
+					mArenaSpawnTimerDefault -=0.2f;
+				}
+			}
+		}
 
     }
 }

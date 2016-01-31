@@ -6,7 +6,7 @@ public class ArenaBullSpawner : MonoBehaviour
 {
 	public List<BullExit> mBullExits = new List<BullExit>();
 	[SerializeField] public GameObject mBull;
-	public float mDefaultGateOpenTime = 10f;
+	public float mDefaultGateOpenTime = 20f;
 	float mBullSpawnTimer = 0.5f;
 	[SerializeField] public float mGateOpenTimer = 0.5f;
 
@@ -14,6 +14,9 @@ public class ArenaBullSpawner : MonoBehaviour
 
 	int mActiveBulls = 0;
 
+	//For how many bulls to spawn per round ~Adam
+	public int mDefaultBullCount = 5;
+	int mBullCount = 0;
 
 	//Pickups to spawn when bull wave is over ~ADam
 	public GameObject mHealthPickup;
@@ -22,7 +25,15 @@ public class ArenaBullSpawner : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		mGateOpenTimer = mDefaultGateOpenTime * (Random.value+0.5f)+5f;
+		//Uncomment this to make waves more frequent as rounds go on ~Adam
+//		mDefaultGateOpenTime -= PlayerPrefs.GetInt("ArenaRound");
+//		if(mDefaultGateOpenTime <5f)
+//		{
+//			mDefaultGateOpenTime = 5f;
+//		}
+
+		mGateOpenTimer = mDefaultGateOpenTime;
+		mDefaultBullCount += PlayerPrefs.GetInt("ArenaRound");
 	}
 	
 	// Update is called once per frame
@@ -40,7 +51,11 @@ public class ArenaBullSpawner : MonoBehaviour
 
 		if(mBullSpawnTimer <= 0f)
 		{
-			SpawnBull();
+			if(mBullCount < mDefaultBullCount)
+			{
+				SpawnBull();
+				mBullCount++;
+			}
 			mBullSpawnTimer = 0.5f-(PlayerPrefs.GetInt("ArenaRound")*0.05f);
 			if(mBullSpawnTimer<=0.15f)
 			{
@@ -76,7 +91,7 @@ public class ArenaBullSpawner : MonoBehaviour
 		{
 			mActiveBulls = 0;
 			mGatesOpen = false;
-			mGateOpenTimer = mDefaultGateOpenTime * (Random.value+0.5f)+5f;
+			mGateOpenTimer = mDefaultGateOpenTime;
 			if(FindObjectOfType<ArenaPlayer>().health <4)
 			{
 				Instantiate(mHealthPickup, Random.insideUnitCircle*4f, Quaternion.identity);
@@ -85,6 +100,8 @@ public class ArenaBullSpawner : MonoBehaviour
 			{
 				Instantiate(mAmmoPickup, Random.insideUnitCircle*4f, Quaternion.identity);
 			}
+			mBullCount = 0;
+			mDefaultBullCount++;
 		}
 	}
 }
