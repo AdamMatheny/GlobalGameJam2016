@@ -111,9 +111,7 @@ public class BabyGenUpdate : MonoBehaviour
 				mBabySpawnTimer = 0f;
 			}
 		}
-		SetTomatoCountText(totalTimePassed);
-
-
+		//SetTomatoCountText(totalTimePassed);
 	}
 
 	void SetTomatoCountText(float ts)
