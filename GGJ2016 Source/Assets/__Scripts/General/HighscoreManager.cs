@@ -33,8 +33,11 @@ public class HighscoreManager {
 	public void Load() {
 		mEntries.Clear();
 		string serializedScores = PlayerPrefs.GetString (PLAYER_PREF_HIGHSCORE_KEY, "");
-		if (serializedScores.Length == 0)
+		//Debug.Log ("Serialized Scores: " + serializedScores);
+		if (serializedScores.Length == 0) {
+			fillInEmptyEntries ();
 			return;
+		}
 		IList json = (IList) MiniJSON.Json.Deserialize(serializedScores);
 		foreach (IDictionary entry in json) {
 			String name = entry ["name"].ToString ();
@@ -46,7 +49,6 @@ public class HighscoreManager {
 
 		// If there are any empty entries ...
 		fillInEmptyEntries ();
-
 	}
 
 	public void Save() {

@@ -16,7 +16,7 @@ public class HighscoreUI : MonoBehaviour{
 	int playerScore = 0;
 	void Awake() {
 		highscoreManager = HighscoreManager.getInstance();
-		highscoreManager.LoadFakeData ();
+		//highscoreManager.LoadFakeData ();
 	}
 
 	// Use this for initialization
