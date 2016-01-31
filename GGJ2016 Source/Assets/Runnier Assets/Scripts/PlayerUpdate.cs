@@ -30,7 +30,7 @@ public class PlayerUpdate : MonoBehaviour {
 		audio = GetComponent<AudioSource>();
 		anim=GetComponent<Animator>();
 		rb2d=GetComponent<Rigidbody2D>();
-		
+
 		TomatoCount=0;
 		SetTomatoCountText();
 	}
