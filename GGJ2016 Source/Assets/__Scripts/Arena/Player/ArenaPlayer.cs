@@ -6,6 +6,7 @@ using System.Collections;
 
 public class ArenaPlayer : MonoBehaviour
 {
+    public GameObject ammoKeeper;
 
     public GameObject mainCamera;
 
@@ -32,7 +33,8 @@ public class ArenaPlayer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        ammoKeeper = GameObject.FindGameObjectWithTag("Ammo");
+        tomatoCount = ammoKeeper.GetComponent<Ammo>().ammo;
         //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 

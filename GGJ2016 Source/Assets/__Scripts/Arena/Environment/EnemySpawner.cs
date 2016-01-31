@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : MonoBehaviour
+{
 
     public float percent;
 
@@ -14,9 +15,20 @@ public class EnemySpawner : MonoBehaviour {
     public ArenaPlayer mTargetPlayer;
 
     // Use this for initialization
-    void Start () 
-	{
-		PlayerPrefs.SetInt("ArenaRound", PlayerPrefs.GetInt("ArenaRound")+1);
+    void Start()
+    {
+        PlayerPrefs.SetInt("ArenaRound", PlayerPrefs.GetInt("ArenaRound") + 1);
+
+        StartCoroutine(uheuhf());
+
+        /**/
+
+        // foreach()
+    }
+
+    IEnumerator uheuhf()
+    {
+
 
         if (mTargetPlayer == null)
         {
@@ -27,8 +39,15 @@ public class EnemySpawner : MonoBehaviour {
         {
             bullSpawner = FindObjectOfType<ArenaBullSpawner>();
         }
+        yield return new WaitForSeconds(2.0f);
 
-		enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * (percent / 100))+PlayerPrefs.GetInt("ArenaRound");
+
+        //enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * (percent / 100)) + PlayerPrefs.GetInt("ArenaRound");
+
+        enemyAmount = Mathf.Round(mTargetPlayer.GetComponent<ArenaPlayer>().tomatoCount * .7f);
+
+
+
 
         for (int i = 0; i < enemyAmount; i++)
         {
@@ -44,11 +63,12 @@ public class EnemySpawner : MonoBehaviour {
             }
         }
 
-        // foreach()
+        //print("Ok");
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

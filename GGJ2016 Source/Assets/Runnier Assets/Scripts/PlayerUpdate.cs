@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerUpdate : MonoBehaviour {
+
+    public GameObject ammoKeeper;
 	
 	Rigidbody2D rb2d;
 	GameObject BabyJumpTarget;
@@ -85,7 +87,7 @@ public class PlayerUpdate : MonoBehaviour {
 		anim.Play(animRun);
 		//if player collides with an enemy.
 		if (col.gameObject.tag == "Enemy")
-		{ Application.LoadLevel("running_stage"); }
+		{ ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(1); }
 	}
 	
 	void OnCollisionStay2D(Collision2D col)
@@ -95,8 +97,8 @@ public class PlayerUpdate : MonoBehaviour {
 		{  CanJump = true; }
 		//if player collides with an enemy.
 		if (col.gameObject.tag == "Enemy")
-		{ Application.LoadLevel("running_stage"); }
-	}
+        { ammoKeeper.GetComponent<Ammo>().ammo = TomatoCount; Application.LoadLevel(1); }
+    }
 	
 	void OnCollisionExit2D(Collision2D col)
 	{
