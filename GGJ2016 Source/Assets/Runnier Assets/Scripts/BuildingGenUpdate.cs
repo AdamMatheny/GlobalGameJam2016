@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class BuildingGenUpdate : MonoBehaviour {
+
+    public int prevBuilding = 7;
 	
 	public int GenerateDelay=0,DefaultDelay=10;
 	public GameObject[] BuildingLaunch=new GameObject[2];
@@ -19,12 +21,28 @@ public class BuildingGenUpdate : MonoBehaviour {
 		{GenerateDelay--;}
 		if (GenerateDelay==0)
 		{
-			if (BType==0 || BType==1 || BType==2)
-			{Instantiate(BuildingLaunch[BType], transform.position, Quaternion.identity);}
-			if (BType==3 || BType==4)
-			{Instantiate(BuildingLaunch[BType], transform.position+Vector3.down, Quaternion.identity);}
+            if (BType != prevBuilding)
+            {
 
-			GenerateDelay=DefaultDelay-Random.Range(0, 40);
+                if (BType == 0 || BType == 1 || BType == 2)
+                { Instantiate(BuildingLaunch[BType], transform.position, Quaternion.identity); }
+                if (BType == 3 || BType == 4)
+                { Instantiate(BuildingLaunch[BType], transform.position + Vector3.down, Quaternion.identity); }
+
+                prevBuilding = BType;
+            }
+            else
+            {
+
+              
+            }
+
+            //prevBuilding = BType;
+           
+
+            GenerateDelay =DefaultDelay-Random.Range(0, 40);
 		}
+
+        
 	}
 }
