@@ -40,7 +40,7 @@ public class RunnerAudioManager : MonoBehaviour {
 						audio.Play(); 
 						mTrackNumber=1;
 						BGU=BG.GetComponent<BabyGenUpdate>();
-						BGU.StartGenerating=true;
+				BGU.StartGenerating=true; BGU.ElapsedTime=Time.time + 1;
 					break;
 				case 1:
 						audio.clip = otherClip[1];
