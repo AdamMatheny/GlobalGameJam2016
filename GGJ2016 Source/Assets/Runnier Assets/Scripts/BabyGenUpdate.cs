@@ -57,9 +57,7 @@ public class BabyGenUpdate : MonoBehaviour {
 				Instantiate(BabyLaunch[BType], transform.position, Quaternion.identity);
 			}
 		}
-		SetTomatoCountText(totalTimePassed);
-
-
+		//SetTomatoCountText(totalTimePassed);
 	}
 
 	void SetTomatoCountText(float ts)
