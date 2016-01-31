@@ -116,7 +116,8 @@ public class ArenaOpponent : MonoBehaviour
                 //GetComponent<SpriteRenderer>().color = Color.black;
                 myAnim.GetComponent<SpriteRenderer>().sprite = blackAngel;
                 DontDestroyOnLoad(myAnim);
-            GetComponent<ArenaOpponent>().enabled = false;
+            // GetComponent<ArenaOpponent>().enabled = false;
+            Destroy(gameObject, 1);
             //Destroy(gameObject);
             //}
 
@@ -278,7 +279,8 @@ public class ArenaOpponent : MonoBehaviour
                 // GetComponent<SpriteRenderer>().color = Color.black;
                myAnim.GetComponent<SpriteRenderer>().sprite = blackAngel;
                 DontDestroyOnLoad(myAnim);
-                GetComponent<ArenaOpponent>().enabled = false;
+                Destroy(gameObject, 1);
+                //GetComponent<ArenaOpponent>().enabled = false;
                 //Destroy(gameObject);
 	        }
 	        else
