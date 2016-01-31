@@ -6,6 +6,9 @@ using System.Collections;
 
 public class ArenaPlayer : MonoBehaviour
 {
+
+    public Sprite deadSprite;
+
     public bool notWon = true;
 
     public bool gameStarted;
@@ -19,6 +22,8 @@ public class ArenaPlayer : MonoBehaviour
     public Vector3 screenPos;
 
     public GameObject UIText;
+    public GameObject UIText2;
+    public GameObject UIImage;
 
     public bool dead;
 
@@ -73,12 +78,31 @@ public class ArenaPlayer : MonoBehaviour
         mainCamera.GetComponentInChildren<CameraShake>().mShakeDuration = .3f;
     }
 
+    IEnumerator KillOffPlayer()
+    {
+
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log("GO TO NEXT SCENE!");
+    }
+
     void Die() //Kill the Player
     {
 
-        GetComponent<SpriteRenderer>().color = Color.magenta;
-        dead = true;
-		PlayerPrefs.SetInt("ArenaRound",-1);
+        //GetComponent<SpriteRenderer>().color = Color.magenta;
+
+        if (!dead)
+        {
+
+            UIImage.gameObject.SetActive(true);
+
+            dead = true;
+            PlayerPrefs.SetInt("ArenaRound", -1);
+
+            StartCoroutine(KillOffPlayer());
+        }
+
+        
     }
 
     void OnCollisionEnter2D(Collision2D coll) //Take Ammo
@@ -124,9 +148,11 @@ public class ArenaPlayer : MonoBehaviour
             { Debug.Log("VICTORY!"); StartCoroutine(Win()); }
         }
 
-        
 
-        UIText.GetComponent<Text>().text = ("Lives: " + health + "\nAmmo: " + tomatoCount+"\nScore: "+PlayerPrefs.GetInt("RoundScore")); //Display Health and Ammo
+
+        //UIText.GetComponent<Text>().text = ("Lives: " + health + "\nAmmo: " + tomatoCount+"\nScore: "+PlayerPrefs.GetInt("RoundScore")); //Display Health and Ammo
+        UIText.GetComponent<Text>().text = ("   x " + tomatoCount);
+        UIText2.GetComponent<Text>().text = ("Score: " + PlayerPrefs.GetInt("RoundScore"));
 
         if (health < 0)
         {

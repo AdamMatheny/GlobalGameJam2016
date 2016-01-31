@@ -15,6 +15,13 @@ public class ArenaPlayerGraphics : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+        if (mPlayerTransform.gameObject.GetComponent<ArenaPlayer>().dead)
+        {
+
+            GetComponent<SpriteRenderer>().sprite = mPlayerTransform.gameObject.GetComponent<ArenaPlayer>().deadSprite;
+            GetComponent<Animator>().enabled = false;
+        }
+
 		if(mPlayerTransform != null)
 		{
 			transform.position = mPlayerTransform.position;
