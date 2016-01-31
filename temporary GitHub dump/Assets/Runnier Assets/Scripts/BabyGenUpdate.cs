@@ -4,7 +4,7 @@ using System.Collections;
 public class BabyGenUpdate : MonoBehaviour {
 
 	public int GenerateDelay=0,DefaultDelay=10;
-	public GameObject BabyLaunch;
+	public GameObject[] BabyLaunch=new GameObject[6];
 
 	// Use this for initialization
 	void Start () {
@@ -13,11 +13,13 @@ public class BabyGenUpdate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		int BType=Random.Range(0, 6); 
+
 		if (GenerateDelay>0)
 		{GenerateDelay--;}
 		if (GenerateDelay==0)
 		{
-			Instantiate(BabyLaunch, transform.position, Quaternion.identity);
+			Instantiate(BabyLaunch[BType], transform.position, Quaternion.identity);
 			GenerateDelay=DefaultDelay-Random.Range(0, 40);
 		}
 	}

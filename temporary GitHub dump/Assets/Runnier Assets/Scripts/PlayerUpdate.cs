@@ -7,7 +7,8 @@ public class PlayerUpdate : MonoBehaviour {
 	Rigidbody2D rb2d;
 	GameObject BabyJumpTarget;
 	BabyUpdate BU;
-	
+	public GameObject UIText;
+
 	public bool currTrigger;
 	public bool pastTrigger;
 	public int TomatoCount=0;
@@ -26,6 +27,7 @@ public class PlayerUpdate : MonoBehaviour {
 		rb2d=GetComponent<Rigidbody2D>();
 		
 		TomatoCount=0;
+		SetTomatoCountText();
 	}
 	
 	// Update is called once per frame
@@ -73,7 +75,8 @@ public class PlayerUpdate : MonoBehaviour {
 		
 		if (BabyJumpTarget.tag=="Enemy" )
 		{
-			TomatoCount++; Application.LoadLevel("running_stage");
+			TomatoCount++; SetTomatoCountText();
+			//Application.LoadLevel("running_stage");
 		}
 	}
 	
@@ -99,5 +102,10 @@ public class PlayerUpdate : MonoBehaviour {
 	{
 		CanJump=false;
 	}
-	
+
+	void SetTomatoCountText()
+	{
+		UIText.GetComponent<Text>().text = ("x"+TomatoCount.ToString ()); //Display Health and Ammo	
+
+	}
 }
