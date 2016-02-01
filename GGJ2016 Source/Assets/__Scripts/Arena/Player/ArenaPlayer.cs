@@ -55,7 +55,7 @@ public class ArenaPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 		
-        Application.LoadLevel(4);
+        Application.LoadLevel(1);
     }
 
     public void TakeDamage(bool kill) //Take Damage and Die if necessary
