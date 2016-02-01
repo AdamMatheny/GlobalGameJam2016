@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class BabyGenUpdate : MonoBehaviour 
 {
 
+    public float randy;
+
 	public int GenerateDelay=0, DefaultDelay=60;
 	public bool StartGenerating=false;
 	public GameObject[] BabyLaunch=new GameObject[6];
@@ -17,7 +19,8 @@ public class BabyGenUpdate : MonoBehaviour
 	public float SecondBGMTotalTime = 0f;
 	#endregion
 
-	#region For spawning babies based on Tempo ~Adam
+	
+    #region For spawning babies based on Tempo ~Adam
 
 	//Array of the points in time at which the tempo should change ~Adam
 	public float[] mTempoChangePoint;
@@ -59,6 +62,8 @@ public class BabyGenUpdate : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+        randy = Random.Range(0, 2);
+
 		int BType=Random.Range(0, 5); 
 		//get the time passed since the last second.
 		float timeSec = ElapsedTime - Time.time;
@@ -74,12 +79,12 @@ public class BabyGenUpdate : MonoBehaviour
 		{
 			//Increment the tempo and spawn timers ~Adam
 			mTempoTimer += Time.deltaTime;
-			mBabySpawnTimer += Time.deltaTime;
+			mBabySpawnTimer += Time.deltaTime * 2.5f;
 
 			//Make spawn chance go up over time, but have a cap  ~Adam
 			if(mBabySpawnChance <= 0.8f)
 			{
-				mBabySpawnChance += Time.deltaTime*0.1f;
+				mBabySpawnChance += Time.deltaTime;
 			}
 
 			//Change the tempo at the set points in time ~Adam
@@ -99,7 +104,7 @@ public class BabyGenUpdate : MonoBehaviour
 			if (mBabySpawnTimer > mTempoValues[mTempoSetting]) 
 			{
 				//Have a random chane of spawning on the tempo beat ~Adam
-				if(Random.value < mBabySpawnChance)
+				if(randy < mBabySpawnChance)
 				{
 					//Make sure we don't spawn twice in a row ~Adam
 					if(!mJustSpawned)
