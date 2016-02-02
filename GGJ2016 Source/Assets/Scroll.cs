@@ -9,8 +9,9 @@ public class Scroll : MonoBehaviour {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
+
+	// NOTE JLI
+	// Store the material locally instead of using GetComponent every frame
 	void Update () {
 
         Vector2 offest = new Vector2(Time.time * speed, 0);

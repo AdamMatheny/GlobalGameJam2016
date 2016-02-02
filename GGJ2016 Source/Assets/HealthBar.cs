@@ -13,7 +13,9 @@ public class HealthBar : MonoBehaviour {
         player = GameObject.FindObjectOfType<ArenaPlayer>();
 	}
 	
-	// Update is called once per frame
+	// NOTE JLI
+	// Not optimized.  Should put this in a function outside of update and invoke when
+	// the player loses health rather than check every frame.
 	void Update () {
 
         if (player.health == 4)

@@ -29,6 +29,8 @@ public class HighscoreUI : MonoBehaviour{
 		}
 	}
 
+	// Note JLI
+	// count shouldn't need a ternary operator
 	void bind() {
 		List<HighscoreEntry> entries = highscoreManager.getEntries ();
 		int count = (entries.Count > HighscoreManager.MAX_HIGH_SCORES ? HighscoreManager.MAX_HIGH_SCORES : entries.Count);

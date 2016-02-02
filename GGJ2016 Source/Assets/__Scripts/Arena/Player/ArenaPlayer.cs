@@ -130,8 +130,10 @@ public class ArenaPlayer : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+	// Note JLI
+	// Instead of getting all the enemies and checking dead, can't we just check the number of enemies still in the scene?
+	// UI code can be moved out of update
+	void Update()
     {
 
         ArenaOpponent[] enemies = GameObject.FindObjectsOfType<ArenaOpponent>();

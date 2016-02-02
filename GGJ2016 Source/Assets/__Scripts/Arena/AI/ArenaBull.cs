@@ -56,6 +56,10 @@ public class ArenaBull : MonoBehaviour
 		}
 	}
 
+	// NOTE JLI
+	// Store the ArenaPlayer locally instead of calling GetComponent twice
+	// Store 12 into a constant variable with a reasonable name.  Would eliminate the need for a comment
+
 	//Go to a gate after ramming into a wall ~Adam
 	void OnCollisionEnter2D(Collision2D coll) 
 	{

@@ -9,7 +9,8 @@ public class CreditsPanel : MonoBehaviour
 	public float mScrollSpeed = 0.1f;
 	public Image mBlackFade;
 
-
+	// Note JLI
+	// Could use a coroutine instead of update
 	void Update () 
 	{
 		mCreditsTimer -= Time.deltaTime;
