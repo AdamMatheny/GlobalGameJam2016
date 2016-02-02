@@ -14,7 +14,8 @@ public class TitleScreenControl : MonoBehaviour
 		PlayerPrefs.SetInt("RoundScore", 0);
 	}
 	
-	// Update is called once per frame
+	// Note JLI
+	// Can used coroutine instead of update()
 	void Update () 
 	{
 		mFlickerTimer -= Time.deltaTime;
